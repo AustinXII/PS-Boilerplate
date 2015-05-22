@@ -249,7 +249,10 @@ exports.groups = {
 	'\u2605': {
 		id: "player",
 		name: "Player",
-		inherit: '+',
+		inherit: '@',
+		jurisdiction: 'u'
+		ban: true,
+		mute: true,
 		roomvoice: true,
 		roomplayer: true,
 		modchat: true,
