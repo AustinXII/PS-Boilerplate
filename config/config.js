@@ -250,7 +250,7 @@ exports.groups = {
 		id: "player",
 		name: "Player",
 		inherit: '@',
-		jurisdiction: 'u'
+		jurisdiction: 'u',
 		ban: true,
 		mute: true,
 		roomvoice: true,
