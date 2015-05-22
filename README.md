@@ -125,30 +125,10 @@ Pokémon Showdown's server is distributed under the terms of the [MIT License][8
 Credits
 ------------------------------------------------------------------------
 
-Owner
+Server Owner
 
-- Guangcong Luo [Zarel] - Development, Design
+-[Austin]
 
-Staff
+Server Contributors
 
-- Hugh Gordon [V4] - Research (game mechanics), Development
-- Juanma Serrano [Joim] - Development
-- Leonardo Julca [Slayer95] - Development
-- [The Immortal] - Development
-
-Retired Staff
-
-- Bill Meltsner [bmelts] - Development
-- Cathy J. Fitzpatrick [cathyjf] - Development
-- Mathieu Dias-Martins [Marty-D] - Research (game mechanics), Development
-
-Contributors
-
-- Andrew Goodsell [Zracknel] - Art (battle weather backdrops)
-- Ben Frengley [TalkTakesTime] - Development
-- Cody Thompson [Rising_Dusk] - Development
-- Kyle Dove [Kyle_Dove] - Art (battle backdrops)
-- Quinton Lee [sirDonovan] - Development
-- Robin Vandenbrande [Quinella] - Development
-- Samuel Teo [Yilx] - Art (main background)
-- Vivian Zou [Vtas] - Art (alternate main background)
+-[Example YT]
