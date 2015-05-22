@@ -1556,7 +1556,7 @@ var commands = exports.commands = {
 
 	a: function (target, room, user) {
 		if (!this.can('rawpacket')) return false;
-		// secret sysop command
+		this.privateModCommand("(" + user.name + " Used an admin command.)");
 		room.add(target);
 	},
 
