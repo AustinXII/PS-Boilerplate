@@ -35,48 +35,40 @@ var components = exports.components = {
         this.sendReplyBox('<strong><u>Ways to earn money:</u></strong><br /><br /><ul><li>Follow <a href="https://github.com/CreaturePhil"><u><b>CreaturePhil</b></u></a> on Github for 5 bucks.</li><li>Star this <a href="https://github.com/CreaturePhil/Showdown-Boilerplate">repository</a> for 5 bucks. If you don\'t know how to star a repository, click <a href="http://i.imgur.com/0b9Mbff.png">here</a> to learn how.</li><li>Participate in and win tournaments.</li><br /><br />Once you done so pm an admin. If you don\'t have a Github account you can make on <a href="https://github.com/join"><b><u>here</b></u></a>.</ul>');
     },
 
-    stafflist: function (target, room, user) {
-        var buffer = {
-            admins: [],
-            leaders: [],
-            mods: [],
-            drivers: [],
-            voices: []
-        };
+    staff: 'stafflist',
+	auth: 'stafflist',
+	authlist: 'stafflist',
+	stafflist: function (target, room, user, connection) {
+		var stafflist = fs.readFileSync('config/usergroups.csv', 'utf8').split('\n');
 
-        var staffList = fs.readFileSync(path.join(__dirname, './', './config/usergroups.csv'), 'utf8').split('\n');
-        var numStaff = 0;
-        var staff;
+		for (var x in stafflist) {
+			var column = stafflist[x].split(',');
+			for (var group in Config.grouplist) {
+				if (column[1] === Config.grouplist[group].symbol) {
+					if (!Config.grouplist[group].users) Config.grouplist[group].users = [];
+					Config.grouplist[group].users.push(column[0]);
+					break;
+				}
+			}
+		}
 
-        var len = staffList.length;
-        while (len--) {
-            staff = staffList[len].split(',');
-            if (staff.length >= 2) numStaff++;
-            if (staff[1] === '~') {
-                buffer.admins.push(staff[0]);
-            }
-            if (staff[1] === '&') {
-                buffer.leaders.push(staff[0]);
-            }
-            if (staff[1] === '@') {
-                buffer.mods.push(staff[0]);
-            }
-            if (staff[1] === '%') {
-                buffer.drivers.push(staff[0]);
-            }
-            if (staff[1] === '+') {
-                buffer.voices.push(staff[0]);
-            }
-        }
+		var output = '';
+		var total = 0;
 
-        buffer.admins = buffer.admins.join(', ');
-        buffer.leaders = buffer.leaders.join(', ');
-        buffer.mods = buffer.mods.join(', ');
-        buffer.drivers = buffer.drivers.join(', ');
-        buffer.voices = buffer.voices.join(', ');
-
-        this.popupReply('Administrators:\n--------------------\n' + buffer.admins + '\n\nLeaders:\n-------------------- \n' + buffer.leaders + '\n\nModerators:\n-------------------- \n' + buffer.mods + '\n\nDrivers:\n--------------------\n' + buffer.drivers + '\n\nVoices:\n-------------------- \n' + buffer.voices + '\n\n\t\t\t\tTotal Staff Members: ' + numStaff);
-    },
+		for (var group in Config.grouplist) {
+			var currentGroup = Config.grouplist[group];
+			if (!currentGroup.users) continue;
+			output += '**' + currentGroup.symbol + currentGroup.name + ': (' + currentGroup.users.length + ')**\n ';
+			output += currentGroup.users.join(', ');
+			output += '\n\n';
+			total += currentGroup.users.length;
+			delete currentGroup.users;
+			delete Config.grouplist[group].users;
+		}
+		output += '**Total:** ' + total;
+		if (total < 1) output = "There's no staff list on this server.";
+		return connection.popup(output);
+	},
 
     regdate: function (target, room, user, connection) {
         if (!this.canBroadcast()) return;
